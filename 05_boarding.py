@@ -44,11 +44,15 @@ def part_one(codes):
     return max(calculate_id(code) for code in codes)
             
 def part_two(codes):
-    return 0
-#    return max(calculate_id(code) for code in codes)
+    all_seats = sorted([calculate_id(code) for code in codes])
+    for i in range(0,len(all_seats)):
+        if i > 0:
+            if all_seats[i+1] - all_seats[i] != 1:
+                return all_seats[i] + 1
 
 if __name__=='__main__':
     codes = []
     for line in sys.stdin:
         codes.append(line.strip())
     print(part_one(codes))
+    print(part_two(codes))
