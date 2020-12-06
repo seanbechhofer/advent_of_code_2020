@@ -4,6 +4,7 @@ import re
 from operator import itemgetter
 import argparse
 import logging
+import functools
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
@@ -13,35 +14,44 @@ class TestStuff(unittest.TestCase):
         return ["abc","","a","b","c","","ab","ac","","a","a","a","a","","b"]
 
     def test_one(self):
-         declarations = parse(self.data())
-         self.assertEquals(part_one(declarations),11)
+         self.assertEquals(part_one(self.data()),11)
 
-def parse(lines):
-    declarations = []
-    declaration = set()
+    def test_two(self):
+         self.assertEquals(part_two(self.data()),6)
+
+# Operator = 0 means union, 
+def parse(lines, operator):
+    groups = []
+    forms = []
     for i in range(0,len(lines)):
         if lines[i] == "":
-            declarations.append(declaration)
-            declaration = set()
+            groups.append(forms)
+            forms = []
         else:
-            logging.debug(lines[i])
-            for character in lines[i]:
-                declaration.add(character)
-    declarations.append(declaration)
-    logging.debug(declarations)
-    return declarations
-        
-def part_one(declarations):
+            forms.append(lines[i])
+    groups.append(forms)
+    logging.debug(groups)
+    declarations = []
+    groups_as_sets = [[set(g) for g in group] for group in groups]
+    logging.debug(groups_as_sets)
+    if operator == 0:
+        collapsed_groups = [reduce(lambda a, b: a.union(b), g) for g in groups_as_sets]
+    else:
+        collapsed_groups = [reduce(lambda a, b: a.intersection(b), g) for g in groups_as_sets]
+    logging.debug(collapsed_groups)
+    return collapsed_groups
+
+def part_one(lines):
+    declarations = parse(lines,0)
     return sum(len(declaration) for declaration in declarations)
             
-def part_two(declrations):
-    return 0
-
+def part_two(lines):
+    declarations = parse(lines,1)
+    return sum(len(declaration) for declaration in declarations)
 
 if __name__=='__main__':
     lines = []
     for line in sys.stdin:
         lines.append(line.strip())
-    declarations = parse(lines)
-    print(part_one(declarations))
-    print(part_two(declarations))
+    print(part_one(lines))
+    print(part_two(lines))
