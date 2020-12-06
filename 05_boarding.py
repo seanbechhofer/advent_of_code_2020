@@ -26,14 +26,18 @@ def debug(arg):
 #    print arg
 
 def calculate_id(code):
-    row,col = decode(code)
-    return (row * 8) + col
+    return int(code.replace('F','0').replace('B','1').replace('L','0').replace('R','1'),2)
+    #row,col = decode(code)
+    #return (row * 8) + col
 
 def decode(code):
     row = int(code[:7].replace('F','0').replace('B','1'),2)
     col = int(code[7:].replace('L','0').replace('R','1'),2)
     return (row, col)
-    
+
+def decode2(code):
+    return int(code.replace('F','0').replace('B','1').replace('L','0').replace('R','1'),2)
+
 def parse(lines):
     cards = []
     for i in range(0,len(lines)):
