@@ -19,7 +19,6 @@ class TestStuff(unittest.TestCase):
     def test_two(self):
          self.assertEquals(part_two(self.data()),6)
 
-# Operator = 0 means union, 
 def parse(lines, operator):
     groups = []
     forms = []
@@ -34,19 +33,16 @@ def parse(lines, operator):
     declarations = []
     groups_as_sets = [[set(g) for g in group] for group in groups]
     logging.debug(groups_as_sets)
-    if operator == 0:
-        collapsed_groups = [reduce(lambda a, b: a.union(b), g) for g in groups_as_sets]
-    else:
-        collapsed_groups = [reduce(lambda a, b: a.intersection(b), g) for g in groups_as_sets]
+    collapsed_groups = [reduce(operator, g) for g in groups_as_sets]
     logging.debug(collapsed_groups)
     return collapsed_groups
 
 def part_one(lines):
-    declarations = parse(lines,0)
+    declarations = parse(lines,lambda a, b: a.union(b))
     return sum(len(declaration) for declaration in declarations)
             
 def part_two(lines):
-    declarations = parse(lines,1)
+    declarations = parse(lines,lambda a, b: a.intersection(b))
     return sum(len(declaration) for declaration in declarations)
 
 if __name__=='__main__':
