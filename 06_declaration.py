@@ -5,6 +5,7 @@ from operator import itemgetter
 import argparse
 import logging
 import functools
+import aoc
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
@@ -20,15 +21,7 @@ class TestStuff(unittest.TestCase):
          self.assertEquals(part_two(self.data()),6)
 
 def parse(lines, operator):
-    groups = []
-    forms = []
-    for i in range(0,len(lines)):
-        if lines[i] == "":
-            groups.append(forms)
-            forms = []
-        else:
-            forms.append(lines[i])
-    groups.append(forms)
+    groups = aoc.blocks(lines)
     logging.debug(groups)
     declarations = []
     groups_as_sets = [[set(g) for g in group] for group in groups]
