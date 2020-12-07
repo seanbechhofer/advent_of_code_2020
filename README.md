@@ -22,13 +22,13 @@ I used a regular expression matcher to split the spec, then a simple check on th
 
 ## Day 3
 
-**Straighforward**
+**Straightforward**
 
 Nice problem this one. Some basic modular arithmetic to deal with the "wrap around". I made my first blunder on this problem, forgetting to `strip()` the lines after reading them, which meant the map had newlines in it and my first submission was wrong.
 
 ## Day 4
 
-**Straighforward**
+**Straightforward**
 
 Part one was straightforward, but I ended up faffing around a lot with regular expressions to get part two right.
 
@@ -36,7 +36,7 @@ I've been trying to second-guess the problems now as well, thinking about how a 
 
 ## Day 5
 
-**Straighforward**
+**Straightforward**
 
 It's just converting the seat codes to binary, using `F = 0, B = 1` and `L = 0, R = 1`. I wasn't as clever as I thought though, as I didn't do it all in one, but converted row, then seat then did the calculation, rather than noticing that the `row*8` meant that the whole thing just converted to binary in one. Doh!
 
