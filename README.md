@@ -46,3 +46,11 @@ Relatively easy this one. I used a python `set` to record the questions answered
 If I'd *really* thought ahead, I would have used the reduce solution from the start, resulting in a one-line change for part two. 
 
 Today I also started using `logging` rather than my own hand rolled debugging code. 
+
+## Day 7
+
+Still fairly straightforward. Hardest bit here was the parsing. My
+data structure choice was right too as Part 2 only required minimal
+coding. The unit tests helped here as in picking up a potential off by
+one error in part two.
+
