@@ -23,7 +23,6 @@ class TestStuff(unittest.TestCase):
 def parse(lines, operator):
     groups = aoc.blocks(lines)
     logging.debug(groups)
-    declarations = []
     groups_as_sets = [[set(g) for g in group] for group in groups]
     logging.debug(groups_as_sets)
     collapsed_groups = [reduce(operator, g) for g in groups_as_sets]
