@@ -22,10 +22,24 @@ class TestStuff(unittest.TestCase):
                     "faded blue bags contain no other bags.",
                     "dotted black bags contain no other bags."]
 
+    def data_2(self):
+        return ["shiny gold bags contain 2 dark red bags.",
+                    "dark red bags contain 2 dark orange bags.",
+                    "dark orange bags contain 2 dark yellow bags.",
+                    "dark yellow bags contain 2 dark green bags.",
+                    "dark green bags contain 2 dark blue bags.",
+                    "dark blue bags contain 2 dark violet bags.",
+                    "dark violet bags contain no other bags."]
+
     def test_one(self):
         bags = parse(self.data())
         logging.debug(bags)
         self.assertEqual(part_one(self.data()), 4)
+
+    def test_two(self):
+        bags = parse(self.data())
+        logging.debug(bags)
+        self.assertEqual(part_two(self.data_2()), 126)
 
 class Bag():
     def __init__(self, colour, content_list, bags):
@@ -47,6 +61,12 @@ class Bag():
                     return True
         return False
 
+    def bag_count(self):
+        count = 1;
+        for colour in self.contents.keys():
+            count += (self.bags[colour].bag_count() * self.contents[colour])
+        return count
+        
 def parse(lines):
     bags = {}
     for line in lines:
@@ -74,7 +94,8 @@ def part_one(lines):
     return count
             
 def part_two(lines):
-    return None
+    bags = parse(lines)
+    return bags['shiny gold'].bag_count() - 1
 
 if __name__=='__main__':
     lines = []
