@@ -64,4 +64,8 @@ Unit tests helped here in picking up a potential off by one error in part two.
 
 ## Day 8
 
-Better specification of test data using split.
+Looks like we're on our way with a multi-part machine build!
+
+With that in mind, I've tried to build something that's extensible and provides a basic machine for execution of instructions. Solution is a bit clunky. Part one keeps a trace of instructions and then checks through. Part two does the "termination" check outside of the machine. This probably needs refactoring if we're going to see more machine based problems. 
+
+Also added a slightly better specification of test data using split.
