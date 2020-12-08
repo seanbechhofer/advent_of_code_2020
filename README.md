@@ -62,3 +62,6 @@ My data structure choice was right though as Part 2 only required minimal coding
 
 Unit tests helped here in picking up a potential off by one error in part two.
 
+## Day 8
+
+Better specification of test data using split.
