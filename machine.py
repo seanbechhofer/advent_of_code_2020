@@ -7,19 +7,8 @@ import logging
 import functools
 import aoc
 
-# Instructions
-
-ACC = 0
-JMP = 1
-NOP = 2
-
 class Machine:
 
-    def dump(self):
-        self.debug(self.memory)
-        self.debug("pc: {}".format(self.counter))
-        self.debug("rb: {}".format(self.base))
-    
     def __init__(self):
         # Program
         self.program = []
@@ -30,7 +19,9 @@ class Machine:
         self.trace = []
 
     def __repr__(self):
-        return ('Acc: {}\nPC:  {}\nPro: {}\nTrace: {}'.format(self.accumulator, self.pc, self.program, self.trace))
+        pro = '\n'.join(['{} {:+d}'.format(i,a) for (i,a) in self.program])
+        tra = '\n'.join(['{}'.format(t) for t in self.trace])
+        return ('Acc: {}, PC:  {}\n{}\n{}'.format(self.accumulator, self.pc, pro, tra))
 
     def set_program(self,lines):
         self.program = self.parse_program(lines)
@@ -48,7 +39,6 @@ class Machine:
 
     def execute_instruction(self):
         instruction, arg = self.program[self.pc]
-        logging.debug('{} {}'.format(instruction, arg))
         if instruction == 'nop':
             self.pc += 1
         elif instruction == 'acc':
@@ -57,6 +47,20 @@ class Machine:
         elif instruction == 'jmp':
             self.pc += arg
         self.trace.append((self.pc,self.accumulator))
-    
+
+    # Load and run a program. Will terminate when the program counter goes
+    # beyond the program length or a loop is detected.
+    def run(self, program):
+        self.set_program(program)
+        while True:
+            # pc goes beyond program
+            if self.pc == len(program):
+                return True
+            self.execute_instruction()
+            (last_pc, last_acc) = self.trace[-1]
+            for i in range(0,len(self.trace) -1):
+                # Loop detection
+                if self.trace[i][0] == last_pc:
+                    return False
 
     
