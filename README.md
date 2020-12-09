@@ -70,3 +70,8 @@ With that in mind, I've tried to build something that's extensible and provides 
 
 Also added a slightly better specification of test data using split.
 
+## Day 9
+
+**Easy**
+
+Sliding window across a list of numbers with some calculations. Initial solution is pretty clunky -- could certainly do better with some python list wrangling.
