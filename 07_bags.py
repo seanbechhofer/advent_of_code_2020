@@ -7,7 +7,7 @@ import logging
 import functools
 import aoc
 
-logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.WARN)
 
 class TestStuff(unittest.TestCase):
 
@@ -95,6 +95,7 @@ def part_one(lines):
             
 def part_two(lines):
     bags = parse(lines)
+    logging.info("\n".join(sorted(bags.keys())))
     return bags['shiny gold'].bag_count() - 1
 
 if __name__=='__main__':
